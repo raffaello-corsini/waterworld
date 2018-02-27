@@ -51,7 +51,7 @@ int main(int argc,char *argv[])
 
     // Costruisco lo stato iniziale da una locazione del sistema.
     // Metto le variabili in ordine alfabertico come suggerito sopra.
-    initial_set[DiscreteLocation("flow0,flow1,flow2,idle_0,idle_1,idle_2,rising0,rising1,rising2")] = Box(2, 1.0,1.0, 6.0,7.5);
+    initial_set[DiscreteLocation("flow0,flow1,flow2,idle_0,idle_1,idle_2,rising0,rising1,rising2")] = Box(2,2,2, 1.0,1.0, 1.0,1.0, 1.0,1.0, 6.0,7.5, 6.0,7.5, 6.0,7.5);
 
     /*
     initial_set[DiscreteLocation("flow,idle,rising")] = Box(2, 1.0,1.0, 6.0,7.5);
