@@ -49,6 +49,8 @@ int main(int argc,char *argv[])
     // understand this when we specify sets, in order to avoid dimension mismatches.
     HybridBoundedConstraintSet initial_set(system.state_space());
 
+    // Metto una riga in cui mi vado a stampare lo stato iniziale.
+    // Mi serve per cercare di capire cos'è che mi fa saltare l'inizializzazione. 
     cout << initial_set;
 
     // Costruisco lo stato iniziale da una locazione del sistema.
