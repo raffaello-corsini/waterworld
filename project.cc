@@ -42,7 +42,7 @@ int main(int argc,char *argv[])
     HybridIOAutomaton system = Ariadne::getSystem();
 
     // Outputs the system
-    cout << system << endl;
+    //cout << system << endl;
 
     // Constructs an initial state, in particular from two different locations of the system
     // Please note how the system variables are ordered alphabetically: this is important to
@@ -51,18 +51,20 @@ int main(int argc,char *argv[])
 
     // Metto una riga in cui mi vado a stampare lo stato iniziale.
     // Mi serve per cercare di capire cos'è che mi fa saltare l'inizializzazione.
-    cout << initial_set;
+    cout << "\n----------- Stampa del'initial set appena creato. \n" << initial_set << "\n-----------\n";
 
     // Costruisco lo stato iniziale da una locazione del sistema.
     // Metto le variabili in ordine alfabertico come suggerito sopra.
     initial_set[DiscreteLocation("flow0,flow1,flow2,idle_0,idle_1,idle_2,rising0,rising1,rising2")]
     // Le variabili in ordine alfabetico sono valveLevel 0-1-2-End, waterLevel 0-1-2.
-    //  = Box(8, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 6.0,8.0 , 6.0,8.0 , 6.0,8.0);
-      = Box(7, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 6.0,8.0 , 6.0,8.0 , 6.0,8.0);
+    //  = Box(7, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 6.0,8.0 , 6.0,8.0 , 6.0,8.0);
+    = Box(6, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 6.0,8.0 , 6.0,8.0 , 6.0,8.0);
     /*
     initial_set[DiscreteLocation("flow,idle,rising")] = Box(2, 1.0,1.0, 6.0,7.5);
     initial_set[DiscreteLocation("flow,idle,falling")] = Box(2, 0.0,0.0, 6.0,7.5);
     */
+
+    cout << "\n----------- Stampa del'initial set inizializzato. \n" << initial_set << "\n-----------\n";
 
     // Runs the analysis routines set in the analysis.h file
     analyse(system,initial_set,verb,plot_results);

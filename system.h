@@ -364,15 +364,21 @@ namespace Ariadne {
       // 3. Registration of the events
 
       // Da ogni controller escono in output gli eventi di apertura e chiusura.
+      // Il controller #2 regola anche la valvola End. Questa verrà aperta
+      // e chiusa in maniera speculare alla valvola #2 e attivata nello stesso
+      // momento. Ovvero quando l'acqua nella tank2 supera un certo limite
+      // la valvola superiore si chiude e quella sottostante si apre.
       // Controller #0.
       controller0.add_output_event(e_open_0);
       controller0.add_output_event(e_close_0);
-      // Controller #0.
+      // Controller #1.
       controller1.add_output_event(e_open_1);
       controller1.add_output_event(e_close_1);
-      // Controller #0.
+      // Controller #2.
       controller2.add_output_event(e_open_2);
       controller2.add_output_event(e_close_2);
+      controller2.add_output_event(e_open_end);
+      controller2.add_output_event(e_close_end);
 
       // 4. Registration of the locations
 
@@ -416,6 +422,7 @@ namespace Ariadne {
       controller1.new_unforced_transition(e_close_1, rising1, falling1, waterLevel1_geq_hmax);
       controller1.new_unforced_transition(e_open_1, falling1, rising1, waterLevel1_leq_hmin);
       // Controllore #2.
+      // Valvola #2 (quella superiore).
       RealExpression waterLevel2_leq_hmax = waterLevel2 - hmax - delta; // x <= hmax + delta
       RealExpression waterLevel2_geq_hmin = hmin - delta - waterLevel2; // x >= hmin - delta
       controller2.new_invariant(rising2, waterLevel2_leq_hmax);
@@ -424,6 +431,10 @@ namespace Ariadne {
       RealExpression waterLevel2_leq_hmin = hmin + delta - waterLevel2; // x <= hmin + delta
       controller2.new_unforced_transition(e_close_2, rising2, falling2, waterLevel2_geq_hmax);
       controller2.new_unforced_transition(e_open_2, falling2, rising2, waterLevel2_leq_hmin);
+      // Valvola End (quella inferiore).
+      controller2.new_unforced_transition(e_open_end, rising2, falling2, waterLevel2_geq_hmax);
+      controller2.new_unforced_transition(e_close_end, falling2, rising2, waterLevel2_leq_hmin);
+
 
       /// Composition
 
