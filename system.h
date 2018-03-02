@@ -101,6 +101,14 @@ namespace Ariadne {
     tank0.add_input_var(valveLevel0);
     tank1.add_input_var(valveLevel1);
     tank2.add_input_var(valveLevel2);
+
+    // Aggiungo nell'ultima tank come input anche l'apertura dell'ultima valvola.
+    tank2.add_input_var(valveLevelEnd);
+    // Non sono sicuro sia corretto ma aggiungo in input sulla tank2 anche
+    // waterLevel0 e waterLevel1, che vado ad utilizzare per definirne la dinamica.
+    tank2.add_input_var(waterLevel0);
+    tank2.add_input_var(waterLevel1);
+
     // Aggiungo la variabile di output per ogni tank, il suo livello d'acqua.
     tank0.add_output_var(waterLevel0);
     tank1.add_output_var(waterLevel1);
