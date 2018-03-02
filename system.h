@@ -63,7 +63,7 @@ namespace Ariadne {
     RealVariable valveLevel0("valveLevel0");
     RealVariable valveLevel1("valveLevel1");
     RealVariable valveLevel2("valveLevel2");
-    RealVariable valveLevelEnd("valveLevelEnd");
+    //RealVariable valveLevelEnd("valveLevelEnd");
 
     /// Tank automaton
 
@@ -103,7 +103,7 @@ namespace Ariadne {
     tank2.add_input_var(valveLevel2);
 
     // Aggiungo nell'ultima tank come input anche l'apertura dell'ultima valvola.
-    tank2.add_input_var(valveLevelEnd);
+    //tank2.add_input_var(valveLevelEnd);
     // Non sono sicuro sia corretto ma aggiungo in input sulla tank2 anche
     // waterLevel0 e waterLevel1, che vado ad utilizzare per definirne la dinamica.
     tank2.add_input_var(waterLevel0);
@@ -146,7 +146,7 @@ namespace Ariadne {
 
     tank2.set_dynamics(flow2, waterLevel2,
       // Ciò che esce.
-      - tankOutputFlow * waterLevel2 * valveLevelEnd
+      - tankOutputFlow * waterLevel2 // * valveLevelEnd
       // Ciò che entra dalla tank 0.
       + tankOutputFlow *  ( valveLevel2 / 2 ) * waterLevel0
       // Ciò che entra dalla tank 1.
@@ -170,7 +170,7 @@ namespace Ariadne {
       HybridIOAutomaton valve0("valve0");
       HybridIOAutomaton valve1("valve1");
       HybridIOAutomaton valve2("valve2");
-      HybridIOAutomaton valve_end("valve_end");
+      //HybridIOAutomaton valve_end("valve_end");
 
       //HybridIOAutomaton valve("valve");
 
@@ -181,7 +181,7 @@ namespace Ariadne {
       valve0.add_output_var(valveLevel0);
       valve1.add_output_var(valveLevel1);
       valve2.add_output_var(valveLevel2);
-      valve_end.add_output_var(valveLevelEnd);
+      //valve_end.add_output_var(valveLevelEnd);
 
       // 3 Registration of the input/internal events
 
@@ -210,12 +210,14 @@ namespace Ariadne {
       valve2.add_input_event(e_close_2);
       valve2.add_internal_event(e_idle_2);
       // Valvola #End.
+      /*
       DiscreteEvent e_open_end("e_open_end");
       DiscreteEvent e_close_end("e_close_end");
       DiscreteEvent e_idle_end("e_idle_end");
       valve_end.add_input_event(e_open_end);
       valve_end.add_input_event(e_close_end);
       valve_end.add_internal_event(e_idle_end);
+      */
 
       // 4. Registration of the locations
 
@@ -243,12 +245,14 @@ namespace Ariadne {
       valve2.new_mode(opening_2);
       valve2.new_mode(closing_2);
       // Valvola End.
+      /*
       DiscreteLocation idle_end("idle_end");
       DiscreteLocation opening_end("opening_end");
       DiscreteLocation closing_end("closing_end");
       valve_end.new_mode(idle_end);
       valve_end.new_mode(opening_end);
       valve_end.new_mode(closing_end);
+      */
 
       // 5. Registration of the dynamics for each location
       // Valvola #0.
@@ -264,9 +268,11 @@ namespace Ariadne {
       valve2.set_dynamics(opening_2, valveLevel2, 1.0/T);
       valve2.set_dynamics(closing_2, valveLevel2, -1.0/T);
       // Valvola End.
+      /*
       valve_end.set_dynamics(idle_end, valveLevelEnd, 0.0);
       valve_end.set_dynamics(opening_end, valveLevelEnd, 1.0/T);
       valve_end.set_dynamics(closing_end, valveLevelEnd, -1.0/T);
+      */
 
       /// 6. Transitions
 
@@ -285,8 +291,10 @@ namespace Ariadne {
       RealExpression valveLevel2_geq_one = valveLevel2 - 1.0;
       RealExpression valveLevel2_leq_zero = -valveLevel2;
       //Valvola End.
+      /*
       RealExpression valveLevelEnd_geq_one = valveLevelEnd - 1.0;
       RealExpression valveLevelEnd_leq_zero = -valveLevelEnd;
+      */
 
       // Resets
       // We need to define a reset for each output variable of the automaton.
@@ -308,10 +316,12 @@ namespace Ariadne {
       std::map<RealVariable,RealExpression> rst_valveLevel2_zero;
       rst_valveLevel2_zero[valveLevel2] = 0.0;
       // Valvola #End.
+      /*
       std::map<RealVariable,RealExpression> rst_valveLevelEnd_one;
       rst_valveLevelEnd_one[valveLevelEnd] = 1.0;
       std::map<RealVariable,RealExpression> rst_valveLevelEnd_zero;
       rst_valveLevelEnd_zero[valveLevelEnd] = 0.0;
+      */
 
       // Forced transitions: transitions which implicitly have complementary guards and consequently
       // force the transition to be taken immediately
@@ -333,10 +343,12 @@ namespace Ariadne {
       valve2.new_unforced_transition(e_open_2, idle_2, opening_2);
       valve2.new_unforced_transition(e_close_2, idle_2, closing_2);
       // Valvola #End.
+      /*
       valve_end.new_forced_transition(e_idle_end, opening_end, idle_end, rst_valveLevelEnd_one, valveLevelEnd_geq_one);
       valve_end.new_forced_transition(e_idle_end, closing_end, idle_end, rst_valveLevelEnd_zero, valveLevelEnd_leq_zero);
       valve_end.new_unforced_transition(e_open_end, idle_end, opening_end);
       valve_end.new_unforced_transition(e_close_end, idle_end, closing_end);
+      */
 
       /// Controller automaton
 
@@ -377,8 +389,8 @@ namespace Ariadne {
       // Controller #2.
       controller2.add_output_event(e_open_2);
       controller2.add_output_event(e_close_2);
-      controller2.add_output_event(e_open_end);
-      controller2.add_output_event(e_close_end);
+      //controller2.add_output_event(e_open_end);
+      //controller2.add_output_event(e_close_end);
 
       // 4. Registration of the locations
 
@@ -432,8 +444,8 @@ namespace Ariadne {
       controller2.new_unforced_transition(e_close_2, rising2, falling2, waterLevel2_geq_hmax);
       controller2.new_unforced_transition(e_open_2, falling2, rising2, waterLevel2_leq_hmin);
       // Valvola End (quella inferiore).
-      controller2.new_unforced_transition(e_open_end, rising2, falling2, waterLevel2_geq_hmax);
-      controller2.new_unforced_transition(e_close_end, falling2, rising2, waterLevel2_leq_hmin);
+      //controller2.new_unforced_transition(e_open_end, rising2, falling2, waterLevel2_geq_hmax);
+      //controller2.new_unforced_transition(e_close_end, falling2, rising2, waterLevel2_leq_hmin);
 
 
       /// Composition
