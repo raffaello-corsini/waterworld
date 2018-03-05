@@ -46,20 +46,25 @@ HybridConstraintSet getSafetyConstraint(HybridAutomatonInterface& system);
 // to focus on specific ones.
 void analyse(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initial_set, int verbosity, bool plot_results)
 {
+
     cout << "1/6: Finite time upper evolution... " << endl << flush;
     finite_time_upper_evolution(system,initial_set,verbosity,plot_results);
-
     cout << "2/6: Finite time lower evolution... " << endl << flush;
     finite_time_lower_evolution(system,initial_set,verbosity,plot_results);
+    /*
     cout << "3/6: Infinite time outer evolution... " << endl << flush;
     infinite_time_outer_evolution(system,initial_set,verbosity,plot_results);
+
     cout << "4/6: Infinite time lower evolution... " << endl << flush;
     infinite_time_epsilon_lower_evolution(system,initial_set,verbosity,plot_results);
+
     cout << "5/6: Safety verification... " << endl << flush;
     safety_verification(system,initial_set,verbosity,plot_results);
+
     cout << "6/6: Parametric safety verification... " << endl << flush;
     parametric_safety_verification(system,initial_set,verbosity,plot_results);
-    
+    */
+
 }
 
 // Performs finite time evolution.
