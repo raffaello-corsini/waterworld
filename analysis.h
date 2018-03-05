@@ -48,7 +48,7 @@ void analyse(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initi
 {
     cout << "1/6: Finite time upper evolution... " << endl << flush;
     finite_time_upper_evolution(system,initial_set,verbosity,plot_results);
-    /*
+
     cout << "2/6: Finite time lower evolution... " << endl << flush;
     finite_time_lower_evolution(system,initial_set,verbosity,plot_results);
     cout << "3/6: Infinite time outer evolution... " << endl << flush;
@@ -59,7 +59,7 @@ void analyse(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initi
     safety_verification(system,initial_set,verbosity,plot_results);
     cout << "6/6: Parametric safety verification... " << endl << flush;
     parametric_safety_verification(system,initial_set,verbosity,plot_results);
-    */
+    
 }
 
 // Performs finite time evolution.
