@@ -59,7 +59,7 @@ int main(int argc,char *argv[])
     initial_set[DiscreteLocation("flow0,idle_0,rising0,flow1,idle_1,rising1,flow2,idle_2,rising2")]
     // Le variabili in ordine alfabetico sono valveLevel 0-1-2-End, waterLevel 0-1-2.
     //  = Box(7, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 6.0,8.0 , 6.0,8.0 , 6.0,8.0);
-     = Box(6, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 6.0,7.0 , 6.0,7.0 , 6.0,7.0);
+     = Box(6, 1.0,1.0 , 1.0,1.0 , 1.0,1.0 , 7.0,7.0 , 7.0,7.0 , 7.0,7.0);
     // = Box(7, 1.0,1.0 , 1.0,1.0 , 0.0,0.0 , 1.0,1.0 , 6.0,8.0 , 6.0,8.0 , 6.0,8.0);
     /*
     initial_set[DiscreteLocation("flow,idle,rising")] = Box(2, 1.0,1.0, 6.0,7.5);

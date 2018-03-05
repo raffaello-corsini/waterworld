@@ -51,6 +51,7 @@ void analyse(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initi
     finite_time_upper_evolution(system,initial_set,verbosity,plot_results);
     cout << "2/6: Finite time lower evolution... " << endl << flush;
     finite_time_lower_evolution(system,initial_set,verbosity,plot_results);
+
     /*
     cout << "3/6: Infinite time outer evolution... " << endl << flush;
     infinite_time_outer_evolution(system,initial_set,verbosity,plot_results);
@@ -64,6 +65,7 @@ void analyse(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initi
     cout << "6/6: Parametric safety verification... " << endl << flush;
     parametric_safety_verification(system,initial_set,verbosity,plot_results);
     */
+
 
 }
 
@@ -129,7 +131,8 @@ void finite_time_lower_evolution(HybridAutomatonInterface& system, HybridBounded
 void infinite_time_outer_evolution(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initial_set, int verbosity, bool plot_results) {
 
     // Creates the domain, necessary to guarantee termination for infinite-time evolution
-    HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    // HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    HybridBoxes domain(system.state_space(),Box(6,0.0,1.0,0.0,1.0,0.0,1.0,4.5,9.0,4.5,9.0,4.5,9.0));
 
     // The accuracy of computation in terms of discretization; the larger, the smaller the grid cells used
     int accuracy = 5;
@@ -152,7 +155,8 @@ void infinite_time_outer_evolution(HybridAutomatonInterface& system, HybridBound
 void infinite_time_epsilon_lower_evolution(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initial_set, int verbosity, bool plot_results) {
 
 	// Creates the domain, necessary to guarantee termination for infinite-time evolution
-    HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    // HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    HybridBoxes domain(system.state_space(),Box(6,0.0,1.0,0.0,1.0,0.0,1.0,4.5,9.0,4.5,9.0,4.5,9.0));
 
     // The accuracy of computation in terms of discretization; the larger, the smaller the grid cells used
     int accuracy = 5;
@@ -177,7 +181,8 @@ void infinite_time_epsilon_lower_evolution(HybridAutomatonInterface& system, Hyb
 void safety_verification(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initial_set, int verbosity, bool plot_results) {
 
 	// Creates the domain, necessary to guarantee termination for infinite-time evolution
-    HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    // HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    HybridBoxes domain(system.state_space(),Box(6,0.0,1.0,0.0,1.0,0.0,1.0,4.5,9.0,4.5,9.0,4.5,9.0));
     // Creates the safety constraint
     HybridConstraintSet safety_constraint = getSafetyConstraint(system);
 
@@ -202,7 +207,8 @@ void safety_verification(HybridAutomatonInterface& system, HybridBoundedConstrai
 void parametric_safety_verification(HybridAutomatonInterface& system, HybridBoundedConstraintSet& initial_set, int verbosity, bool plot_results) {
 
 	// Creates the domain, necessary to guarantee termination for infinite-time evolution
-    HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    // HybridBoxes domain(system.state_space(),Box(2,0.0,1.0,4.5,9.0));
+    HybridBoxes domain(system.state_space(),Box(6,0.0,1.0,0.0,1.0,0.0,1.0,4.5,9.0,4.5,9.0,4.5,9.0));
     // Creates the safety constraint
     HybridConstraintSet safety_constraint = getSafetyConstraint(system);
 
@@ -255,6 +261,7 @@ HybridConstraintSet getSafetyConstraint(HybridAutomatonInterface& system) {
     consexpr.append(expr);
     VectorFunction cons_f(consexpr,varlist);
     // Constructs the codomain for the expression
+    // Questo devo capire bene come funzioni.
     Box codomain(1,5.25,8.25);
 
     // Constructs a costraint set and then applies it to each location of the system
